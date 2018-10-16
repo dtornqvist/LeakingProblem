@@ -1,10 +1,24 @@
+import kotlin.native.ref.WeakReference
+import kotlinx.cinterop.autoreleasepool
+
 class KotlinNativeFramework {
-    var listener: KotlinNativeFrameworkListener? = null
+    private var listenerRef: WeakReference<KotlinNativeFrameworkListener>? = null
+
+    var listener: KotlinNativeFrameworkListener?
+        get() = listenerRef?.get()
+        set(value) {
+            if (value != null)
+                listenerRef = WeakReference(value)
+            else
+                listenerRef = null
+        }
 
     fun giveMeDoubles() {
         while (true) {
             val myList = DoubleArray(100) { 1.0 }.toList()
-            listener?.listenToDoubles(myList) // If this line is commented, the leak stops.
+            autoreleasepool {
+                listener?.listenToDoubles(myList)
+            }
         }
     }
 }
