@@ -1,5 +1,5 @@
-import kotlin.native.ref.WeakReference
 import kotlinx.cinterop.autoreleasepool
+import kotlin.native.ref.WeakReference
 
 class KotlinNativeFramework {
     private var listenerRef: WeakReference<KotlinNativeFrameworkListener>? = null

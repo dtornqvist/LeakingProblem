@@ -1,0 +1,10 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven { url="https://dl.bintray.com/kotlin/kotlin-eap" }
+    }
+}
+
+include(":KotlinNativeFramework")
+project(":KotlinNativeFramework").projectDir = file("../KotlinNativeFramework")
+rootProject.name = file("..").name
